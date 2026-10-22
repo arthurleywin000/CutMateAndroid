@@ -1,3 +1,4 @@
+
 name: Build CutMate APK
 
 on:
@@ -27,6 +28,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+
+      - name: Fix JSON compilation error
+        run: |
+          sed -i 's/ing.put(new JSONObject(o.toString()));/ing.put(o);/' project/CutMateAndroid/app/src/main/java/com/cutmate/app/MainActivity.java
 
       - name: Build APK
         run: |
